@@ -74,12 +74,14 @@ RUN NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.co
 RUN HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew install \
     himalaya \
     nushell \
-    steipete/tap/summarize \
-    steipete/tap/bird
+    steipete/tap/summarize
 
 USER root
 RUN chown -R root:root /home/linuxbrew/.linuxbrew
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
+
+# bird CLI formula was removed from Homebrew tap; install from npm package
+RUN npm install -g @steipete/bird
 
 WORKDIR /app
 
