@@ -56,6 +56,11 @@ RUN apt-get update \
     python3 \
     pkg-config \
     sudo \
+    jq \
+    ripgrep \
+    tmux \
+    neovim \
+    gh \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Homebrew (must run as non-root user)
@@ -65,8 +70,12 @@ RUN useradd -m -s /bin/bash linuxbrew \
 
 USER linuxbrew
 RUN NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-# Install himalaya CLI (persist across redeploys)
-RUN HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew install himalaya
+# Install Linux skill CLIs that must persist across redeploys
+RUN HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew install \
+    himalaya \
+    nushell \
+    steipete/tap/summarize \
+    steipete/tap/bird
 
 USER root
 RUN chown -R root:root /home/linuxbrew/.linuxbrew
