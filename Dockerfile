@@ -61,6 +61,7 @@ RUN apt-get update \
     tmux \
     neovim \
     gh \
+    ffmpeg \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Homebrew (must run as non-root user)
@@ -75,12 +76,31 @@ RUN HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew install \
     himalaya \
     nushell
 
+# Best-effort install of Linux-compatible steipete tap CLIs (skip unavailable ones)
+RUN /home/linuxbrew/.linuxbrew/bin/brew tap steipete/tap \
+  && for pkg in \
+    steipete/tap/blucli \
+    steipete/tap/camsnap \
+    steipete/tap/gifgrep \
+    steipete/tap/gogcli \
+    steipete/tap/goplaces \
+    steipete/tap/mcporter \
+    steipete/tap/oracle \
+    steipete/tap/ordercli \
+    steipete/tap/sag \
+    steipete/tap/songsee \
+    steipete/tap/sonoscli \
+    steipete/tap/spogo \
+    steipete/tap/wacli; do \
+      HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew install "$pkg" || echo "[warn] skipping $pkg"; \
+    done
+
 USER root
 RUN chown -R root:root /home/linuxbrew/.linuxbrew
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
 
-# Some tap formulas are unavailable on Linux x86_64; install JS CLIs via npm
-RUN npm install -g @steipete/bird @steipete/summarize
+# JS CLIs
+RUN npm install -g @steipete/bird @steipete/summarize clawhub @google/gemini-cli
 
 WORKDIR /app
 
