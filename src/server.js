@@ -80,6 +80,12 @@ const INTERNAL_GATEWAY_PORT = Number.parseInt(
   10,
 );
 const INTERNAL_GATEWAY_HOST = process.env.INTERNAL_GATEWAY_HOST ?? "127.0.0.1";
+
+const READY_TIMEOUT_MS = Number.parseInt(
+  process.env.OPENCLAW_GATEWAY_READY_TIMEOUT_MS ?? "20000",
+  10,
+);
+
 const GATEWAY_TARGET = `http://${INTERNAL_GATEWAY_HOST}:${INTERNAL_GATEWAY_PORT}`;
 
 // Always run the built-from-source CLI entry directly to avoid PATH/global-install mismatches.
@@ -114,7 +120,7 @@ function sleep(ms) {
 }
 
 async function waitForGatewayReady(opts = {}) {
-  const timeoutMs = opts.timeoutMs ?? 20_000;
+  const timeoutMs = opts.timeoutMs ?? READY_TIMEOUT_MS;
   const start = Date.now();
   const endpoints = ["/openclaw", "/openclaw", "/", "/health"];
   
@@ -232,7 +238,7 @@ async function ensureGatewayRunning() {
   if (!gatewayStarting) {
     gatewayStarting = (async () => {
       await startGateway();
-      const ready = await waitForGatewayReady({ timeoutMs: 20_000 });
+      const ready = await waitForGatewayReady({ timeoutMs: READY_TIMEOUT_MS });
       if (!ready) {
         throw new Error("Gateway did not become ready in time");
       }

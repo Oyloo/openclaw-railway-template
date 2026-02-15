@@ -82,3 +82,7 @@ docker run --rm -p 8080:8080 \
 
 # open http://localhost:8080/setup (password: test)
 ```
+
+
+## Gateway readiness timeout
+Set `OPENCLAW_GATEWAY_READY_TIMEOUT_MS` (ms) to increase startup readiness for cold starts. Example: `60000`.
