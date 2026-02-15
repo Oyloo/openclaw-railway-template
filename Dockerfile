@@ -65,6 +65,8 @@ RUN useradd -m -s /bin/bash linuxbrew \
 
 USER linuxbrew
 RUN NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Install himalaya CLI (persist across redeploys)
+RUN HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew install himalaya
 
 USER root
 RUN chown -R root:root /home/linuxbrew/.linuxbrew
