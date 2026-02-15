@@ -73,15 +73,14 @@ RUN NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.co
 # Install Linux skill CLIs that must persist across redeploys
 RUN HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew install \
     himalaya \
-    nushell \
-    steipete/tap/summarize
+    nushell
 
 USER root
 RUN chown -R root:root /home/linuxbrew/.linuxbrew
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
 
-# bird CLI formula was removed from Homebrew tap; install from npm package
-RUN npm install -g @steipete/bird
+# Some tap formulas are unavailable on Linux x86_64; install JS CLIs via npm
+RUN npm install -g @steipete/bird @steipete/summarize
 
 WORKDIR /app
 
