@@ -86,3 +86,8 @@ docker run --rm -p 8080:8080 \
 
 ## Gateway readiness timeout
 Set `OPENCLAW_GATEWAY_READY_TIMEOUT_MS` (ms) to increase startup readiness for cold starts. Example: `60000`.
+
+## Linux CLI compatibility (Adosi profile)
+For current Linux x86_64 runtime tool availability and arm64-only exclusions, see:
+
+- `docs/CLI_COMPATIBILITY_LINUX_X64.md`
