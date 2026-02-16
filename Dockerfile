@@ -80,6 +80,7 @@ RUN HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew install \
 # Excluded as arm64-macOS only: blucli, camsnap, mcporter, sonoscli.
 RUN /home/linuxbrew/.linuxbrew/bin/brew tap steipete/tap \
   && for pkg in \
+    steipete/tap/codexbar \
     steipete/tap/gifgrep \
     steipete/tap/gogcli \
     steipete/tap/goplaces \
@@ -90,7 +91,9 @@ RUN /home/linuxbrew/.linuxbrew/bin/brew tap steipete/tap \
     steipete/tap/spogo \
     steipete/tap/wacli; do \
       HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew install "$pkg"; \
-    done
+    done \
+  && HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew tap openhue/cli \
+  && HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew install openhue/cli/openhue-cli
 
 USER root
 RUN chown -R root:root /home/linuxbrew/.linuxbrew
