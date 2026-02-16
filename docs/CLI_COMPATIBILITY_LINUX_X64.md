@@ -3,73 +3,80 @@
 Last verified: 2026-02-16
 Service: `openclaw-railway-template` (project `adosi`)
 
-## ✅ Installed and available in runtime
+## ✅ Installed and available in runtime (30)
 
-- bird
-- clawhub
-- curl
-- date
-- ffmpeg
-- gemini
-- gh
-- gifgrep
-- gog
-- goplaces
-- himalaya
-- jq
-- nu (nushell)
-- nvim (neovim)
-- oracle
-- ordercli
-- python3
-- rg
-- sag
-- songsee
-- spogo
-- summarize
-- tmux
-- wacli
+| CLI | Source | Skill |
+|-----|--------|-------|
+| bird | npm (`@steipete/bird`) | — |
+| clawhub | npm | clawhub |
+| codexbar | brew (`steipete/tap`) | model-usage |
+| curl | apt | — |
+| date | coreutils | — |
+| ffmpeg | apt | video-frames |
+| gemini | npm (`@google/gemini-cli`) | gemini |
+| gh | apt | github |
+| gifgrep | brew (`steipete/tap`) | gifgrep |
+| gog | brew (`steipete/tap`) | gog |
+| goplaces | brew (`steipete/tap`) | — |
+| himalaya | brew | himalaya |
+| jq | apt | trello |
+| nu | brew (nushell) | — |
+| nvim | apt (neovim) | — |
+| obsidian-cli | brew (`yakitrak/yakitrak`) | obsidian |
+| openhue | brew (`openhue/cli`) | openhue |
+| oracle | brew (`steipete/tap`) | — |
+| ordercli | brew (`steipete/tap`) | ordercli |
+| python3 | apt | — |
+| railway | npm (`@railway/cli`) | railway |
+| rg | apt (ripgrep) | — |
+| sag | brew (`steipete/tap`) | — |
+| songsee | brew (`steipete/tap`) | songsee |
+| spogo | brew (`steipete/tap`) | — |
+| spotify_player | symlink → spogo | — |
+| summarize | npm (`@steipete/summarize`) | summarize |
+| tmux | apt | tmux |
+| uv | curl (astral.sh) | — |
+| wacli | brew (`steipete/tap`) | wacli |
 
-## ❌ Missing in runtime
+## ❌ Missing — macOS-only (cannot run on Linux)
 
-- blogwatcher
-- codexbar
-- eightctl
-- grizzly
-- imsg
-- memo
-- nano-pdf
-- obsidian-cli
-- op
-- openhue
-- peekaboo
-- railway
-- remindctl
-- spotify_player
-- things
-- uv
-- whisper
+| CLI | Reason | Skill |
+|-----|--------|-------|
+| grizzly | Bear notes CLI — macOS `bear-notes` only | bear-notes |
+| imsg | macOS iMessage framework (`depends_on macos: :sonoma`) | imsg |
+| memo | Apple Notes/Reminders — macOS Python bridges | apple-notes |
+| peekaboo | macOS screenshots (`depends_on macos: :sonoma`) | peekaboo |
+| remindctl | Apple Reminders (`depends_on macos: :sonoma`) | apple-reminders |
+| things | Things 3 URL scheme — macOS only | things-mac |
 
-## 🚫 Architecture/platform constrained (arm64 macOS in tap formulas)
+## ❌ Missing — no Linux package found
 
-These are intentionally excluded from Linux image install attempts:
+| CLI | Notes | Skill |
+|-----|-------|-------|
+| blogwatcher | no npm/brew/binary release found | blogwatcher |
+| eightctl | no npm/brew/binary release for Linux | eightctl |
+| nano-pdf | no npm/brew/binary release found | nano-pdf |
+| whisper | requires pytorch + llvm — too heavy for Docker | openai-whisper |
 
-- blu (skill: blucli)
-- camsnap (skill: camsnap)
-- mcporter (skill: mcporter)
-- sonos (skill: sonoscli)
+## ⚠️ Available but not installed (optional)
 
-Why: corresponding Homebrew tap formulae are packaged as macOS arm64-only binaries (`depends_on arch: :arm64`).
+| CLI | Notes | Skill |
+|-----|-------|-------|
+| op | 1Password CLI — available via apt, needs auth setup | 1password |
 
-## Custom Adosi skills status
+## 🚫 Architecture constrained (arm64 macOS only in tap)
 
-- bird → `bird` ✅
-- summarize → `summarize` ✅
-- trello → `jq` ✅
-- model-usage → `codexbar` ❌ (not available in Linux runtime)
+| CLI | Skill |
+|-----|-------|
+| blu | blucli |
+| camsnap | camsnap |
+| mcporter | mcporter |
+| sonos | sonoscli |
 
-## Operational policy for this image
+## Summary
 
-1. Do not attempt to install arm64-only formulae in Linux builds.
-2. Prefer Linux-compatible sources (apt/Homebrew Linux/npm) only.
-3. Treat unavailable/mac-only tools as non-blocking unless the user explicitly requests platform migration.
+- **30** CLIs installed and verified
+- **6** macOS-only (cannot port)
+- **4** no Linux package exists
+- **1** available but optional (op)
+- **4** arm64-macOS only (excluded)
