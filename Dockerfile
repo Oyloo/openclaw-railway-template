@@ -93,7 +93,9 @@ RUN /home/linuxbrew/.linuxbrew/bin/brew tap steipete/tap \
       HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew install "$pkg"; \
     done \
   && HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew tap openhue/cli \
-  && HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew install openhue/cli/openhue-cli
+  && HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew install openhue/cli/openhue-cli \
+  && HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew tap yakitrak/yakitrak \
+  && HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew install yakitrak/yakitrak/obsidian-cli
 
 USER root
 RUN chown -R root:root /home/linuxbrew/.linuxbrew
