@@ -76,23 +76,20 @@ RUN HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew install \
     himalaya \
     nushell
 
-# Best-effort install of Linux-compatible steipete tap CLIs (skip unavailable ones)
+# Linux/x86_64 subset from steipete tap.
+# Excluded as arm64-macOS only: blucli, camsnap, mcporter, sonoscli.
 RUN /home/linuxbrew/.linuxbrew/bin/brew tap steipete/tap \
   && for pkg in \
-    steipete/tap/blucli \
-    steipete/tap/camsnap \
     steipete/tap/gifgrep \
     steipete/tap/gogcli \
     steipete/tap/goplaces \
-    steipete/tap/mcporter \
     steipete/tap/oracle \
     steipete/tap/ordercli \
     steipete/tap/sag \
     steipete/tap/songsee \
-    steipete/tap/sonoscli \
     steipete/tap/spogo \
     steipete/tap/wacli; do \
-      HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew install "$pkg" || echo "[warn] skipping $pkg"; \
+      HOMEBREW_NO_AUTO_UPDATE=1 /home/linuxbrew/.linuxbrew/bin/brew install "$pkg"; \
     done
 
 USER root
