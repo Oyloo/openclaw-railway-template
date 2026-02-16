@@ -97,7 +97,12 @@ RUN chown -R root:root /home/linuxbrew/.linuxbrew
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
 
 # JS CLIs
-RUN npm install -g @steipete/bird @steipete/summarize clawhub @google/gemini-cli
+RUN npm install -g @steipete/bird @steipete/summarize clawhub @google/gemini-cli @railway/cli
+
+# uv (Astral) + compatibility alias for spotify-player skill check
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh \
+  && mv /root/.local/bin/uv /usr/local/bin/uv \
+  && if command -v spogo >/dev/null 2>&1; then ln -sf "$(command -v spogo)" /usr/local/bin/spotify_player; fi
 
 WORKDIR /app
 
