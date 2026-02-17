@@ -62,7 +62,9 @@ RUN apt-get update \
     neovim \
     gh \
     ffmpeg \
-  && rm -rf /var/lib/apt/lists/*
+    iptables \
+  && rm -rf /var/lib/apt/lists/* \
+  && curl -fsSL https://tailscale.com/install.sh | sh
 
 # Install Homebrew (must run as non-root user)
 # Create a user for Homebrew installation, install it, then make it accessible to all users
