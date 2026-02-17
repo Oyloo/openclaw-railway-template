@@ -126,7 +126,8 @@ RUN printf '%s\n' '#!/usr/bin/env bash' 'exec node /openclaw/dist/entry.js "$@"'
   && chmod +x /usr/local/bin/openclaw
 
 COPY src ./src
+RUN chmod +x src/entrypoint.sh
 
 ENV PORT=8080
 EXPOSE 8080
-CMD ["node", "src/server.js"]
+CMD ["bash", "src/entrypoint.sh"]
